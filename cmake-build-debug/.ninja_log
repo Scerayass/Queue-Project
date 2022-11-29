@@ -1,0 +1,18 @@
+# ninja log v5
+1	262	6914187673138521	build.ninja	79fcf8c0eb9c3734
+21	818	6914187681997790	CMakeFiles/thirdAssignment.dir/main.cpp.obj	d8476577c218f05e
+0	835	6914187682177322	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+836	1379	6914187687570163	thirdAssignment.exe	42f03d9349250910
+4	802	6914188100989520	CMakeFiles/thirdAssignment.dir/main.cpp.obj	d8476577c218f05e
+27	819	6914188101180580	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+820	1005	6914188102981329	thirdAssignment.exe	42f03d9349250910
+3	847	6914190291452744	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+848	1033	6914190293269717	thirdAssignment.exe	42f03d9349250910
+3	852	6914194337781876	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+853	1371	6914194342920543	thirdAssignment.exe	42f03d9349250910
+3	1007	6914205824646668	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+1008	1547	6914205830005119	thirdAssignment.exe	42f03d9349250910
+3	984	6914206724237286	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+985	1184	6914206726190889	thirdAssignment.exe	42f03d9349250910
+3	1096	6914207007150006	CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj	9ae79b5b73d55e31
+1097	1301	6914207009156477	thirdAssignment.exe	42f03d9349250910
