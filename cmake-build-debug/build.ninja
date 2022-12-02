@@ -61,6 +61,36 @@ build CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj: CXX_COMPILER__thi
   OBJECT_DIR = CMakeFiles\thirdAssignment.dir
   OBJECT_FILE_DIR = CMakeFiles\thirdAssignment.dir
 
+build CMakeFiles/thirdAssignment.dir/Model1.cpp.obj: CXX_COMPILER__thirdAssignment_Debug C$:/Users/GameGaraj/CLionProjects/thirdAssignment/Model1.cpp || cmake_object_order_depends_target_thirdAssignment
+  DEP_FILE = CMakeFiles\thirdAssignment.dir\Model1.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\thirdAssignment.dir
+  OBJECT_FILE_DIR = CMakeFiles\thirdAssignment.dir
+
+build CMakeFiles/thirdAssignment.dir/Model2.cpp.obj: CXX_COMPILER__thirdAssignment_Debug C$:/Users/GameGaraj/CLionProjects/thirdAssignment/Model2.cpp || cmake_object_order_depends_target_thirdAssignment
+  DEP_FILE = CMakeFiles\thirdAssignment.dir\Model2.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\thirdAssignment.dir
+  OBJECT_FILE_DIR = CMakeFiles\thirdAssignment.dir
+
+build CMakeFiles/thirdAssignment.dir/CashierQueue.cpp.obj: CXX_COMPILER__thirdAssignment_Debug C$:/Users/GameGaraj/CLionProjects/thirdAssignment/CashierQueue.cpp || cmake_object_order_depends_target_thirdAssignment
+  DEP_FILE = CMakeFiles\thirdAssignment.dir\CashierQueue.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\thirdAssignment.dir
+  OBJECT_FILE_DIR = CMakeFiles\thirdAssignment.dir
+
+build CMakeFiles/thirdAssignment.dir/Cashier.cpp.obj: CXX_COMPILER__thirdAssignment_Debug C$:/Users/GameGaraj/CLionProjects/thirdAssignment/Cashier.cpp || cmake_object_order_depends_target_thirdAssignment
+  DEP_FILE = CMakeFiles\thirdAssignment.dir\Cashier.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\thirdAssignment.dir
+  OBJECT_FILE_DIR = CMakeFiles\thirdAssignment.dir
+
+build CMakeFiles/thirdAssignment.dir/Barista.cpp.obj: CXX_COMPILER__thirdAssignment_Debug C$:/Users/GameGaraj/CLionProjects/thirdAssignment/Barista.cpp || cmake_object_order_depends_target_thirdAssignment
+  DEP_FILE = CMakeFiles\thirdAssignment.dir\Barista.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\thirdAssignment.dir
+  OBJECT_FILE_DIR = CMakeFiles\thirdAssignment.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target thirdAssignment
@@ -69,7 +99,7 @@ build CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj: CXX_COMPILER__thi
 #############################################
 # Link the executable thirdAssignment.exe
 
-build thirdAssignment.exe: CXX_EXECUTABLE_LINKER__thirdAssignment_Debug CMakeFiles/thirdAssignment.dir/main.cpp.obj CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj
+build thirdAssignment.exe: CXX_EXECUTABLE_LINKER__thirdAssignment_Debug CMakeFiles/thirdAssignment.dir/main.cpp.obj CMakeFiles/thirdAssignment.dir/ReadAndWriteFile.cpp.obj CMakeFiles/thirdAssignment.dir/Model1.cpp.obj CMakeFiles/thirdAssignment.dir/Model2.cpp.obj CMakeFiles/thirdAssignment.dir/CashierQueue.cpp.obj CMakeFiles/thirdAssignment.dir/Cashier.cpp.obj CMakeFiles/thirdAssignment.dir/Barista.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\thirdAssignment.dir
