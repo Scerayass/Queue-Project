@@ -3,6 +3,7 @@
 
 
 #include "Order.h"
+#include "Cashier.h"
 
 class Barista {
 public:
@@ -11,6 +12,8 @@ public:
     int baristaNumber;
     double allTime ;
     Order* currentOrder;
+    Cashier* cashier;
+
 };
 
 

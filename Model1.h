@@ -14,6 +14,9 @@ public:
     void execute(vector<vector<string>> vector,int cashierNumber,int customer);
     void insertCashier(Order* currOrder);
     void insertBarista(Order* currOrder);
+    void endCashiers();
+    void endBaristas();
+    void endBaristaQueue();
 };
 
 

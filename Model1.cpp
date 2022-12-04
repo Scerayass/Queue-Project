@@ -5,6 +5,7 @@
 #include "Cashier.h"
 #include "Barista.h"
 #include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 // cashier an barista numbers starts with 0;
 ::vector<Cashier> cashierOrder;
@@ -12,6 +13,9 @@ using namespace std;
 CashierQueue* cashierQueue;
 CashierQueue* baristaQueue;
 ::vector<Order*> finishedOrder;
+Order * lastOrder;
+double lastOrderTime;
+double finishTime;
 
 void Model1::execute(vector<vector<string>> vector,int cashierNumber,int customer) {
     cashierQueue = new CashierQueue(customer);
@@ -56,47 +60,36 @@ void Model1::execute(vector<vector<string>> vector,int cashierNumber,int custome
             index++;
         }
         Order* tempOrder = new Order(arrivalTime, orderTime, brewOrder, price);
+        tempOrder->firstArrivalTime = arrivalTime;
+        finishedOrder.push_back(tempOrder);
         insertCashier(tempOrder);
-        /*
-        for(int i = 0 ; i < atOrder.size(); i++){
-            if(atOrder.at(i).orderTime <= (arrivalTime - atOrder.at(i).arrivalTime)){
-
-                if(atBrew().size() < (cashierNumber / 3)){
-                    atBrew().push_back(atOrder.at(i));
-                }else{
-                    baristaQueue->enqueue(atOrder.at(i));
-                }
-                atOrder.erase(atOrder.begin() + i);
-            }
-        }
-        if(!cashierQueue->isEmpty()){
-            while(atOrder.size() < cashierNumber){
-                cout << "burda3" << endl;
-                Order tempOrder = cashierQueue->dequeue();
-
-                if(tempOrder.orderTime != 0){
-                    atOrder.push_back(tempOrder);
-                }
-            }
-        }
-        if(atOrder.size() < cashierNumber){
-
-            atOrder.push_back(tempOrder);
-        }else{
-
-            cashierQueue->enqueue(tempOrder);
-
-        }
-        //cout << arrivalTime << " " << orderTime << " " << brewOrder << endl;
-        for(Order i : atOrder){
-            cout << i.orderTime << " ";
-        }
-        cout << endl;*/
     }
+    endCashiers();
+    endBaristas();
+    endBaristaQueue();
 
+    /*
     while(!baristaQueue->isEmpty()){
-        cout << baristaQueue->dequeue()->orderTime << "-";
+        cout << baristaQueue->dequeue()->coffeeTime << "-";
+    }*/
+
+    //cout << endl;
+    /*
+    for(int i = 0 ; i < cashierOrder.size() ; i++){
+        cout << cashierOrder.at(i).allTime << " -";
+    }*/
+
+    //cout << baristaQueue->max << endl;
+
+    for(int i = 0 ; i < finishedOrder.size();i++){
+        cout << finishedOrder.at(i)->coffeeTime + finishedOrder.at(i)->beforeBrew - finishedOrder.at(i)->firstArrivalTime << " - ";
+        //cout <<  + finishedOrder.at(i)->beforeBrew << " - ";
     }
+    
+    //cout << finishedOrder.size() << endl;
+
+    //cout << lastOrderTime;
+
 }
 void Model1::insertCashier(Order* currOrder){
     int index = 0;
@@ -110,7 +103,6 @@ void Model1::insertCashier(Order* currOrder){
             insertBarista(tempOrder);
         }
     }
-
     while( !cashierQueue->isEmpty() ){
 
         double tempTime = 999999.0;
@@ -121,18 +113,19 @@ void Model1::insertCashier(Order* currOrder){
             }
         }
         if(tempTime == 999999.0){break;}
-
         for(int i = 0 ; i < cashierOrder.size(); i++){
 
             if(cashierOrder.at(i).lastTime == tempTime){
+
                 cashierOrder.at(i).lastTime = 0.0;
+
                 cashierOrder.at(i).currentOrder = cashierQueue->dequeue();
+                cashierOrder.at(i).allTime += cashierOrder.at(i).currentOrder->orderTime;
                 cashierOrder.at(i).currentOrder->arrivalTime = tempTime;
                 break;
             }
         }
     }
-
     for(int i = 0 ; i < cashierOrder.size() ; i++){ //  en baştan beri tarıyor boş yere koyuyor
         if (cashierOrder.at(i).currentOrder == NULL){
             cashierOrder.at(i).currentOrder = currOrder;
@@ -148,67 +141,54 @@ void Model1::insertCashier(Order* currOrder){
             cout << cashierQueue->dequeue()->orderTime << endl;
         }*/
     }
-
+    cout << endl;
     for( int i = 0 ; i < cashierOrder.size() ; i++){
         if(cashierOrder.at(i).currentOrder != NULL){
             cout << cashierOrder.at(i).currentOrder->orderTime << " ";
         }
-
     }
-
-    cout << index << endl;
+    cout << cashierOrder.size() << endl;
 
 }
 void Model1::insertBarista(Order *currOrder) {
     int index = 0;
+    int deleted = 0;
+
 
 
     for(int i = 0 ; i < baristaBrew.size() ; i++){
         if(baristaBrew.at(i).currentOrder != NULL && (currOrder->beforeBrew - baristaBrew.at(i).currentOrder->beforeBrew) >= baristaBrew.at(i).currentOrder->coffeeTime){
             Order* tempOrder = baristaBrew.at(i).currentOrder;
+            baristaBrew.at(i).lastTime = tempOrder->beforeBrew + tempOrder->coffeeTime;
             baristaBrew.at(i).currentOrder = NULL;
-            finishedOrder.push_back(tempOrder);
-        }
-    }
-    /*
-    while( !cashierQueue->isEmpty() ){
 
+
+            deleted++;
+        }/*
+        else if (baristaBrew.at(i).currentOrder != NULL){
+            Order* tempOrder = baristaBrew.at(i).currentOrder;
+        }*/
+    }
+    while( !baristaQueue->isEmpty() && deleted > 0){
+
+        Order* maxPriceCoffe = baristaQueue->maxDequeue();
         double tempTime = 999999.0;
-        for(int i = 0 ; i < cashierOrder.size() ; i++){
+        for(int i = 0 ; i < baristaBrew.size() ; i++){
             //cout << cashierOrder.at(i).lastTime << " neden 2 ";
-            if(cashierOrder.at(i).currentOrder == NULL && cashierOrder.at(i).lastTime < tempTime){
-                tempTime = cashierOrder.at(i).lastTime;
+            if(baristaBrew.at(i).currentOrder == NULL && baristaBrew.at(i).lastTime < tempTime){
+                tempTime = baristaBrew.at(i).lastTime;
             }
         }
-        if(tempTime == 999999.0){break;}
+        for(int i = 0 ; i < baristaBrew.size() ; i++){
+            if ( baristaBrew.at(i).lastTime == tempTime ){
 
-        for(int i = 0 ; i < cashierOrder.size(); i++){
+                baristaBrew.at(i).currentOrder = maxPriceCoffe;
+                baristaBrew.at(i).currentOrder->beforeBrew = tempTime;
 
-            if(cashierOrder.at(i).lastTime == tempTime){
-                cashierOrder.at(i).lastTime = 0.0;
-                cashierOrder.at(i).currentOrder = cashierQueue->dequeue();
-                cashierOrder.at(i).currentOrder->arrivalTime = tempTime;
-                break;
             }
         }
+        deleted--;
     }
-
-    while(!baristaQueue->isEmpty()){
-        double tempCoffeePrice = 0.0;
-        for(int i = 0; i < baristaBrew.size() ; i++){
-            if(baristaBrew.at(i).currentOrder == NULL && baristaBrew.at(i).currentOrder->coffeePrice > tempCoffeePrice ){
-                tempCoffeePrice = baristaBrew.at(i).currentOrder->coffeePrice;
-            }
-        }
-        if(tempCoffeePrice == 0.0){break;}
-
-        for(int i = 0; i < baristaBrew.size() ; i++){
-            if(baristaBrew.at(i).currentOrder.)
-        }
-
-    }
-    */
-    // en son maxDequeue yi yaptın buraya geri gelecektin
     for(int i = 0 ; i < baristaBrew.size() ; i++){
         if (baristaBrew.at(i).currentOrder == NULL){
             baristaBrew.at(i).currentOrder = currOrder;
@@ -217,6 +197,7 @@ void Model1::insertBarista(Order *currOrder) {
             break;
         }
     }
+
     if(index == 0){
         baristaQueue->enqueue(currOrder);
         /*
@@ -235,4 +216,173 @@ void Model1::insertBarista(Order *currOrder) {
     cout << "------------------------------------" << endl;
 
 
+}
+
+void Model1::endCashiers() {
+    //  queueda varsa çalışmıyor
+    bool isFinished = false;
+    while( !isFinished ){
+        double time = 999999.0;
+        for(int i = 0 ; i < cashierOrder.size(); i++){
+            if(cashierOrder.at(i).currentOrder != NULL){
+                Order * temp = cashierOrder.at(i).currentOrder;
+                if((temp->arrivalTime + temp->orderTime) < time ){
+
+                    time = temp->arrivalTime + temp->orderTime;
+                }
+            }
+        }
+        if(time == 999999.0){
+            isFinished = true;
+            break;
+        }
+        for(int i = 0 ; i < cashierOrder.size(); i++){
+            if(cashierOrder.at(i).currentOrder != NULL &&  (cashierOrder.at(i).currentOrder->arrivalTime + cashierOrder.at(i).currentOrder->orderTime) == time){
+                Order * temp = cashierOrder.at(i).currentOrder;
+                cashierOrder.at(i).currentOrder = NULL;
+
+                temp->beforeBrew = temp->arrivalTime + temp->orderTime ;
+                lastOrder = temp;
+                lastOrderTime = lastOrder->beforeBrew;
+                insertBarista(temp);
+            }
+        }
+    }
+    for(int i = 0 ; i < baristaQueue->count; i++){
+        Order * tempOrder = baristaQueue->peek(i);
+        tempOrder->beforeBrew = lastOrderTime;
+    }
+}
+
+void Model1::endBaristas() {
+    if(baristaQueue->count == 0){
+        return;
+    }
+
+    vector<double> minNumber;
+    for(int i = 0 ; i < baristaBrew.size() ; i++){
+        Order * minOrder = baristaBrew.at(i).currentOrder;
+        minNumber.push_back(( minOrder->beforeBrew + minOrder->coffeeTime) - lastOrderTime);
+    }
+    sort(minNumber.begin(),minNumber.end());
+    cout << minNumber.at(0);
+
+
+    for(int i = 0 ; i < baristaQueue->size() ; i++){
+        baristaQueue->peek(i)->beforeBrew += minNumber.at(0);
+    }
+
+    for(int i = 0 ; i < baristaBrew.size() ; i++){
+        Order * minOrder = baristaBrew.at(i).currentOrder;
+        if( minNumber.at(0) ==( ( minOrder->beforeBrew + minOrder->coffeeTime) - lastOrderTime) ){
+            cout << "-";
+            lastOrderTime = minOrder->beforeBrew + minOrder->coffeeTime;
+            baristaBrew.at(i).currentOrder = NULL;
+            Order * tempOrder = baristaQueue->maxDequeue();
+            baristaBrew.at(i).currentOrder = tempOrder;
+            baristaBrew.at(i).allTime += tempOrder->coffeeTime;
+        }
+    }
+    cout << lastOrderTime << " pusu ";
+    endBaristas();
+
+    /*
+    int whileIndex = 0;
+
+    while(!baristaQueue->isEmpty()){
+        Order * tempOrder;
+        double tempTime = 999999.0;
+        for(int i = 0 ; i < baristaBrew.size() ; i++){
+            Order* temp = baristaBrew.at(i).currentOrder;
+            cout << (temp->beforeBrew + temp->coffeeTime) << " - ";
+            cout << lastOrder->beforeBrew << " bunu ariyom ";
+            if( temp != NULL && whileIndex == 0 && ((temp->beforeBrew + temp->coffeeTime) - lastOrder->beforeBrew < tempTime)){
+                tempTime = (temp->beforeBrew + temp->coffeeTime) - lastOrder->beforeBrew ;
+                tempOrder = temp;
+            }else if{
+
+            }
+        }
+    }
+
+    int index = 0;
+    for(int i = 0 ; i < baristaBrew.size(); i++){
+        if(baristaBrew.at(i).currentOrder != NULL){
+            index++;
+        }
+    }
+    if(index == 0){return;}
+
+    Order * tempOrder;
+    double tempTime = 999999.0;
+
+    for(int i = 0 ; i < baristaBrew.size() ; i++){
+        Order* temp = baristaBrew.at(i).currentOrder;
+
+        if( temp != NULL && ((temp->beforeBrew + temp->coffeeTime) - lastOrderTime < tempTime)){
+            tempTime = (temp->beforeBrew + temp->coffeeTime) - lastOrder->beforeBrew ;
+            cout << tempTime << " burasiiiiiii";
+            tempOrder = temp;
+        }
+    }
+
+    for(int i = 0 ; i < baristaBrew.size() ; i++){
+        if(baristaBrew.at(i).currentOrder != tempOrder){
+            //baristaBrew.at(i).currentOrder->beforeBrew
+        }
+    }
+    //lastOrderTime += tempTime;
+    //cout << tempOrder->coffeeTime << endl;
+    for(int i = 0 ; i < baristaQueue->count ; i++){
+        Order* selectedOrder = baristaQueue->peek(i);
+        cout << selectedOrder->coffeePrice << " - ";
+        selectedOrder->beforeBrew += tempTime;
+    }
+    cout << endl;
+    for(int i = 0 ; i < baristaBrew.size() ; i++){
+        if ( baristaBrew.at(i).currentOrder != NULL && baristaBrew.at(i).currentOrder == tempOrder){
+            if(baristaQueue->count > 0){
+                baristaBrew.at(i).currentOrder = baristaQueue->maxDequeue();
+            }else{
+                //lastOrderTime = baristaBrew.at(i).currentOrder.
+                baristaBrew.at(i).currentOrder = NULL;
+            }
+
+        }
+    }
+
+    for(int i = 0 ; i < baristaQueue->count << i++){
+        Order* newLastOrder
+    }*/
+    /*
+    cout << "------------------------------------";
+    for( int i = 0 ; i < baristaBrew.size() ; i++){
+        if(baristaBrew.at(i).currentOrder != NULL){
+            cout << baristaBrew.at(i).currentOrder->coffeeTime << " ";
+        }
+
+    }
+    cout << "------------------------------------" << endl;
+
+    if(baristaQueue->count == 0){return;}
+    endBaristas();
+     */
+
+}
+
+void Model1::endBaristaQueue() {
+    double time = 0;
+    for(int i = 0 ; i < baristaBrew.size() ; i++){
+        if(baristaBrew.at(i).currentOrder == NULL){
+            continue;
+        }else{
+            Order * tempOrder = baristaBrew.at(i).currentOrder;
+            baristaBrew.at(i).allTime += tempOrder->coffeeTime;
+            if( ( tempOrder->beforeBrew + tempOrder->coffeeTime) > time){
+                time = tempOrder->beforeBrew + tempOrder->coffeeTime;
+            }
+        }
+    }
+    cout << time  <<  " ---- \n";
+    finishTime = time;
 }

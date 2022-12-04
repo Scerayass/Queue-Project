@@ -5,11 +5,16 @@
 class Order{
 
 public:
+    double firstArrivalTime;
     double arrivalTime;
     double orderTime;
     double coffeeTime;
     double coffeePrice;
     double beforeBrew;
+    double exitTime;
+    int cashierNumber;
+    int baristaNumber;
+    double startBrew;
 
     Order(){}
 

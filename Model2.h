@@ -1,13 +1,12 @@
-//
-// Created by GameGaraj on 30.11.2022.
-//
-
 #ifndef THIRDASSIGNMENT_MODEL2_H
 #define THIRDASSIGNMENT_MODEL2_H
-
-
+#include <vector>
+#include <string>
+#include "Order.h"
+using namespace std;
 class Model2 {
-
+    void execute(vector<vector<string>> vector,int cashierNumber,int customer);
+    void insertCashier(Order* currOrder);
 };
 
 
