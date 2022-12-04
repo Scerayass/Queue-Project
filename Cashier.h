@@ -1,12 +1,9 @@
-//
-// Created by GameGaraj on 2.12.2022.
-//
-
 #ifndef THIRDASSIGNMENT_CASHIER_H
 #define THIRDASSIGNMENT_CASHIER_H
 
 
 #include "Order.h"
+#include "Barista.h"
 
 class Cashier {
 public:
@@ -15,6 +12,7 @@ public:
     int cashierNumber = 0;
     double allTime = 0;
     Order* currentOrder;
+    //Barista* currBarista;
 };
 
 

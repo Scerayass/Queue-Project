@@ -2,6 +2,7 @@
 #define THIRDASSIGNMENT_CASHIERQUEUE_H
 
 #include "Order.h"
+#include "Barista.h"
 #include <vector>
 #define SIZE 1000
 using namespace std;
@@ -9,6 +10,7 @@ using namespace std;
 class CashierQueue {
 
 public:
+    CashierQueue();
     CashierQueue(int size = SIZE);
     ~CashierQueue();
     Order * dequeue();
@@ -20,6 +22,7 @@ public:
     bool isFull();
     int subtractor(double x);
 
+    //Barista currBarista;
     int max = 0;
     int capacity;
     int front;

@@ -11,6 +11,10 @@ CashierQueue::CashierQueue(int size) {
     count = 0;
 
 }
+
+CashierQueue::CashierQueue() {
+
+}
 CashierQueue::~CashierQueue() {
     //delete[] arr;
 }

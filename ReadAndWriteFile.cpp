@@ -57,7 +57,8 @@ void ReadAndWriteFile::execute() {
     }*/
     model1.orders = allOrders;
     model1.execute(allOrders,cashiersNumber,orderNumber);
-
+    model2.orders = allOrders;
+    model2.execute(allOrders,cashiersNumber,orderNumber);
 
     inputFile.close();
 
