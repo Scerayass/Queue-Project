@@ -20,9 +20,7 @@ public:
     int size();
     bool isEmpty();
     bool isFull();
-    int subtractor(double x);
 
-    //Barista currBarista;
     int max = 0;
     int capacity;
     int front;

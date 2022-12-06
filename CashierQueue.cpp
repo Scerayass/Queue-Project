@@ -26,7 +26,7 @@ Order * CashierQueue::dequeue() {
     }
     Order *x = arr.front();
     arr.erase(arr.begin());
-    //front = (front + 1) % capacity;
+
     count--;
 
     return x;
@@ -37,7 +37,6 @@ void CashierQueue::enqueue(Order* x) {
         return;
     }
 
-    //rear = (rear + 1) % capacity;
     arr.push_back(x);
     count++;
 
@@ -49,7 +48,7 @@ void CashierQueue::enqueue(Order* x) {
 Order* CashierQueue::peek(int x) {
     if(front + x > capacity-1){
         std::cout << "cannot peek" << std::endl;
-        //return -1.0;
+
     }
     return arr.at(x);
 }
@@ -82,16 +81,3 @@ Order * CashierQueue::maxDequeue() {
 
 
 }
-/*
-int CashierQueue::subtractor(double x) {
-    int temp = front;
-    while(arr[temp] != NULL){
-        arr[temp] -= x;
-        if(arr[temp] <= 0){
-            return temp;
-        }
-        temp++;
-    }
-    return -1;
-}
-*/

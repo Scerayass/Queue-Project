@@ -8,7 +8,10 @@
 
 class ReadAndWriteFile {
 public:
-    void execute();
+    /**
+     * execute method likes a main method for reading and writing all inputs and outputs
+     */
+    void execute(std::string inputFileName,std::string outputFileName);
 };
 
 

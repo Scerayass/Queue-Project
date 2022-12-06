@@ -8,19 +8,19 @@
 
 using namespace std;
 
-void ReadAndWriteFile::execute() {
+void ReadAndWriteFile::execute(string inputFileName,string outputFileName) {
     ifstream inputFile;
-    inputFile.open("input.txt",ios::in);
+    inputFile.open(inputFileName,ios::in);
     string inputString;
 
     Model1 model1;
     Model2 model2;
+
     int cashiersNumber;
     int orderNumber;
 
-    vector<vector<string>> allOrders;
+    vector<vector<string>> allOrders; // holding all inputs
 
-    //string* allOrders;
     int index = 0;
     int orderIndex = 0;
     while(getline(inputFile,inputString)){
@@ -32,33 +32,22 @@ void ReadAndWriteFile::execute() {
             index++;
         }else{
             istringstream orderStream(inputString);
-
             string orderString =  "";
             vector<string> tempVector;
 
             while(getline(orderStream,orderString,' ')){
-
                 tempVector.push_back(orderString);
-
-
             }
             allOrders.push_back(tempVector);
             orderIndex++;
 
         }
+    }
 
-    }/*
-    for(vector<string> i : allOrders){
-
-        for(string j: i){
-            cout << j << " ";
-        }
-        cout << endl;
-    }*/
-    model1.orders = allOrders;
-    model1.execute(allOrders,cashiersNumber,orderNumber);
-    model2.orders = allOrders;
-    model2.execute(allOrders,cashiersNumber,orderNumber);
+    model1.orders = allOrders; // adding all orders to model1
+    model1.execute(allOrders,cashiersNumber,orderNumber,outputFileName);
+    model2.orders = allOrders; //  adding all orders to model2
+    model2.execute(allOrders,cashiersNumber,orderNumber,outputFileName);
 
     inputFile.close();
 
