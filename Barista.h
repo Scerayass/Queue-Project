@@ -16,6 +16,7 @@ public:
     int baristaNumber;
     double allTime ;
     Order* currentOrder;
+    double lastCoffeTime;
     //Cashier* cashier;
     set<Order*> allOrders;
     void calculateFinish();

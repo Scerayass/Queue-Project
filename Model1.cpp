@@ -168,7 +168,6 @@ void Model1::insertBarista(Order *currOrder) {
     int index = 0;
     int deleted = 0;
 
-
     for(int i = 0 ; i < baristaBrew.size() ; i++){
         if(baristaBrew.at(i).currentOrder != NULL && (currOrder->beforeBrew - baristaBrew.at(i).currentOrder->beforeBrew) >= baristaBrew.at(i).currentOrder->coffeeTime){
             Order* tempOrder = baristaBrew.at(i).currentOrder;
@@ -203,6 +202,7 @@ void Model1::insertBarista(Order *currOrder) {
         }
         deleted--;
     }
+
     for(int i = 0 ; i < baristaBrew.size() ; i++){
         if (baristaBrew.at(i).currentOrder == NULL){
             baristaBrew.at(i).currentOrder = currOrder;
@@ -289,7 +289,7 @@ void Model1::endBaristas() {
 
     for(int i = 0 ; i < baristaBrew.size() ; i++){
         Order * minOrder = baristaBrew.at(i).currentOrder;
-        if( minNumber.at(0) ==( ( minOrder->beforeBrew + minOrder->coffeeTime) - lastOrderTime) ){
+        if( minNumber.at(0) == ( ( minOrder->beforeBrew + minOrder->coffeeTime) - lastOrderTime) ){
             cout << "-";
             lastOrderTime = minOrder->beforeBrew + minOrder->coffeeTime;
             baristaBrew.at(i).currentOrder = NULL;
